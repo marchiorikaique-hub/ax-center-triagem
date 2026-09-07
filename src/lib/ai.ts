@@ -1,5 +1,5 @@
 // Fronteira da IA. A IA faz UMA coisa: entender uma pergunta em linguagem natural
-// e devolver o filtro estruturado. Ela nunca conta nem inventa número — quem
+// e devolver o filtro estruturado. Ela nunca conta nem inventa número; quem
 // executa é query.ts em cima do dado limpo. Sem chave (ou se a IA falhar), caímos
 // no parser determinístico. Assim a busca funciona sempre, e a IA só melhora o
 // alcance para perguntas fora do padrão.

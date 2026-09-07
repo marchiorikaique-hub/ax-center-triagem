@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
+import "@fontsource-variable/mona-sans"; // fonte do GitHub, para os títulos
 import "./globals.css";
-
-const serif = Fraunces({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-serif",
-  display: "swap",
-});
 
 const sans = Inter({
   subsets: ["latin"],
@@ -22,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="pt-BR" className={sans.variable}>
       <body>{children}</body>
     </html>
   );

@@ -27,7 +27,7 @@ export function alertaFalhaSistemica(c: CandidatoSistemico): Alerta {
   const escopo = c.lote ? `${c.modelo} lote ${c.lote}` : c.modelo;
   const custo = c.custoMedio ? ` Custo médio de peça R$ ${c.custoMedio}.` : "";
   const msg =
-    `Possível falha sistêmica — ${c.linha} ${escopo}\n` +
+    `Possível falha sistêmica: ${c.linha} ${escopo}\n` +
     `Volume no mês de ${c.mesPico}: ${c.nPico} casos (média dos 2 meses anteriores: ${c.mediaAnterior}).\n` +
     `Sintoma predominante: ${c.sintomaDominante || "não classificado"}. UF concentrada: ${c.ufDominante}.\n` +
     `Série mensal: ${linha}.${custo}\n` +
@@ -43,7 +43,7 @@ export function alertaFalhaSistemica(c: CandidatoSistemico): Alerta {
 export function alertaCriticoVencido(b: ResumoBacklog): Alerta | null {
   if (b.criticasVencidas === 0) return null;
   const msg =
-    `Crítico fora do prazo — ${b.criticasVencidas} ocorrência(s) crítica(s) já passaram do prazo de atendimento.\n` +
+    `Crítico fora do prazo: ${b.criticasVencidas} ocorrência(s) crítica(s) já passaram do prazo de atendimento.\n` +
     `Total de críticas abertas: ${b.criticasAbertas}.\n` +
     `Ação: priorizar hoje. Estas não podem esperar a fila normal.`;
   return {
@@ -57,7 +57,7 @@ export function alertaCriticoVencido(b: ResumoBacklog): Alerta | null {
 export function alertaBacklog(b: ResumoBacklog): Alerta | null {
   if (b.vencidas < 50) return null; // só quando o acúmulo já é perigoso
   const msg =
-    `Backlog em nível de atenção — ${b.abertas} ocorrências abertas, ${b.vencidas} já fora do prazo.\n` +
+    `Backlog em nível de atenção: ${b.abertas} ocorrências abertas, ${b.vencidas} já fora do prazo.\n` +
     `Idade média das abertas: ${b.idadeMediaDias} dias.\n` +
     `Ação: revisar dimensionamento da triagem. A fila está crescendo mais rápido do que o atendimento.`;
   return {

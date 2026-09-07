@@ -28,7 +28,8 @@
   --shadow-accent: 0 2px 4px rgba(165, 0, 52, 0.08), 0 20px 44px -24px rgba(165, 0, 52, 0.4);
   --mono: "SF Mono", ui-monospace, Menlo, monospace;
   --sans: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --serif: var(--font-serif), Georgia, "Times New Roman", serif;
+  /* Mona Sans: a fonte aberta do GitHub, usada nos títulos */
+  --display: "Mona Sans Variable", var(--font-sans), -apple-system, "Segoe UI", sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -57,16 +58,16 @@ body {
 
 /* header */
 .masthead { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
-.masthead h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(26px, 4vw, 34px); line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 6px; }
+.masthead h1 { font-family: var(--display); font-weight: 700; font-size: clamp(26px, 4vw, 34px); line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 6px; }
 .masthead h1 .mark { color: var(--accent); }
 .masthead p { margin: 0; color: var(--ink-2); font-size: 14px; max-width: 46ch; }
 .masthead .meta { text-align: right; color: var(--ink-3); font-size: 12.5px; line-height: 1.5; white-space: nowrap; }
 .masthead .meta b { color: var(--ink-2); font-weight: 600; font-variant-numeric: tabular-nums; }
 
-/* chat hero — destacado, com faixa e cabeçalho na cor da marca */
+/* chat hero destacado, com faixa e cabeçalho na cor da marca */
 .chat { margin-top: 30px; background: var(--surface); border: 1px solid var(--accent-soft); border-radius: var(--radius); box-shadow: var(--shadow-accent); overflow: hidden; }
 .chat .head { padding: 20px 24px 16px; background: var(--accent-soft); border-bottom: 1px solid var(--line); }
-.chat .head h2 { font-family: var(--serif); font-weight: 500; font-size: 21px; letter-spacing: -0.01em; margin: 0 0 3px; color: var(--accent); }
+.chat .head h2 { font-family: var(--display); font-weight: 650; font-size: 21px; letter-spacing: -0.01em; margin: 0 0 3px; color: var(--accent); }
 .chat .head p { margin: 0; color: var(--ink-2); font-size: 13.5px; }
 
 /* a conversa vive numa caixa de altura fixa e rola por dentro; a página não cresce */
@@ -99,7 +100,7 @@ body {
 
 /* cards */
 .board { margin-top: 34px; }
-.board > h3 { font-family: var(--serif); font-weight: 500; font-size: 18px; margin: 0 0 14px; letter-spacing: -0.01em; }
+.board > h3 { font-family: var(--display); font-weight: 650; font-size: 18px; margin: 0 0 14px; letter-spacing: -0.01em; }
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
 .card { text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 17px 18px 16px; cursor: pointer; font: inherit; color: inherit; box-shadow: var(--shadow-1); transition: box-shadow 0.18s, border-color 0.18s, transform 0.18s; position: relative; }
 .card:hover { box-shadow: var(--shadow-2); border-color: var(--line-strong); transform: translateY(-2px); }
@@ -119,7 +120,7 @@ body {
 .panel { margin-top: 14px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius); box-shadow: var(--shadow-1); overflow: hidden; animation: reveal 0.28s cubic-bezier(0.16, 1, 0.3, 1); }
 @keyframes reveal { from { opacity: 0; transform: translateY(-6px); filter: blur(3px); } to { opacity: 1; transform: none; filter: none; } }
 .panel .phead { display: flex; justify-content: space-between; align-items: baseline; padding: 16px 20px; border-bottom: 1px solid var(--line); gap: 16px; }
-.panel .phead h4 { font-family: var(--serif); font-weight: 500; font-size: 16px; margin: 0; }
+.panel .phead h4 { font-family: var(--display); font-weight: 650; font-size: 16px; margin: 0; }
 .panel .phead .count { color: var(--ink-3); font-size: 12.5px; font-variant-numeric: tabular-nums; }
 
 .tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }

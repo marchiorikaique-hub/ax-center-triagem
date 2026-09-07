@@ -19,7 +19,13 @@ export default function Chat() {
   const [turnos, setTurnos] = useState<Turno[]>([]);
   const [texto, setTexto] = useState("");
   const [carregando, setCarregando] = useState(false);
-  const fim = useRef<HTMLDivElement>(null);
+  const threadRef = useRef<HTMLDivElement>(null);
+
+  // Rola só por dentro da caixa da conversa, nunca a página.
+  function rolarFim() {
+    const el = threadRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }
 
   async function enviar(pergunta: string) {
     const q = pergunta.trim();
@@ -28,7 +34,7 @@ export default function Chat() {
     setTurnos(novos);
     setTexto("");
     setCarregando(true);
-    setTimeout(() => fim.current?.scrollIntoView({ behavior: "smooth" }), 40);
+    setTimeout(rolarFim, 40);
     try {
       const r = await fetch("/api/chat", {
         method: "POST",
@@ -41,7 +47,7 @@ export default function Chat() {
       setTurnos([...novos, { autor: "bot", texto: "Não consegui responder agora. Tente de novo." }]);
     } finally {
       setCarregando(false);
-      setTimeout(() => fim.current?.scrollIntoView({ behavior: "smooth" }), 40);
+      setTimeout(rolarFim, 40);
     }
   }
 
@@ -52,7 +58,7 @@ export default function Chat() {
         <p>Escreva como falaria com um colega. A resposta vem da base de ocorrências.</p>
       </div>
 
-      <div className="thread">
+      <div className="thread" ref={threadRef}>
         {turnos.length === 0 && !carregando && (
           <div className="vazio">
             <strong>Converse com a base</strong>
@@ -77,7 +83,6 @@ export default function Chat() {
             <div className="typing" aria-label="digitando"><i /><i /><i /></div>
           </div>
         )}
-        <div ref={fim} />
       </div>
 
       <form

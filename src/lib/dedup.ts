@@ -4,7 +4,7 @@
 //  - Reincidência: um atendimento NOVO na mesma série, depois que o anterior
 //    já foi fechado. É outro caso e DEVE contar; o procedimento manda abrir separado.
 //
-// Cuidado com a coluna id_origem: ela NÃO liga só duplicata de canal — também
+// Cuidado com a coluna id_origem: ela NÃO liga só duplicata de canal; ela também
 // aponta o atendimento anterior de uma reincidência. Por isso não a tratamos
 // como duplicata de forma cega: classificamos o par pelo tempo e pelo canal.
 

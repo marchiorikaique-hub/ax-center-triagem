@@ -36,7 +36,7 @@ function linhaBase(o: Ocorrencia): LinhaLista {
     modelo: o.modelo,
     uf: o.uf,
     linha: o.linha,
-    prioridade: o.prioridade ?? "—",
+    prioridade: o.prioridade ?? "n/d",
     abertura: iso(o.abertura),
     diasAberto: dias(o.abertura),
   };

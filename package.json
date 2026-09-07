@@ -13,6 +13,7 @@
     "accuracy": "tsx scripts/accuracy.ts"
   },
   "dependencies": {
+    "@fontsource-variable/mona-sans": "^5.3.0",
     "next": "15.5.2",
     "react": "19.1.1",
     "react-dom": "19.1.1"
