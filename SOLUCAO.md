@@ -76,11 +76,22 @@ a página continua de pé.
 
 ## d) O que encontrei na base que ninguém me contou
 
-- **O prazo da crítica se contradiz em três lugares.** O e-mail da coordenação fala
-  em 24 horas, o procedimento formal fala em 48, e a base grava sempre 72 para as
-  críticas, o mesmo valor da prioridade alta. Ou seja, no dado, "crítica" e "alta"
-  são tratadas igual. Isso muda diretamente o que conta como fora do prazo, então
-  deixei configurável e perguntei à operação qual é o número oficial.
+- **O prazo da crítica não tem número oficial, então eu decidi um.** A coordenação
+  pratica 24 horas, o procedimento (última revisão em 2024) diz 48, e a base grava
+  sempre 72, o mesmo valor da prioridade alta, o que empata e anula o nível crítico.
+  Confirmei com a operação que não existe um valor reconciliado. **Decisão: uso 24
+  horas para a crítica**, porque é o número que a coordenação de fato pratica e cobra
+  da rede autorizada, ou seja, o compromisso operacional real. Deixei configurável em
+  `SLA_CRITICA_HORAS`, para trocar sem mexer no código quando o negócio reconciliar.
+  A premissa e o raciocínio ficam registrados aqui, para defesa.
+- **O relógio de SLA tem dois lados, e o início é tão sujo quanto a duração.** A
+  duração (24, 48 ou 72) é só metade. O outro lado é o início da contagem, que o
+  procedimento manda contar a partir da data de abertura. Só que 41 ocorrências não
+  têm data de abertura (23 delas abertas), 30 têm fechamento anterior à abertura, e
+  as 72 reaberta não trazem a data do reinício. Minha primeira versão assumia que o
+  início sempre existia e escondia as 23 abertas sem data como se estivessem em dia.
+  Corrigi: agora elas viram indeterminadas, saem da conta de vencidas e aparecem
+  sinalizadas, e as reaberta ficam marcadas com relógio incerto.
 - **A fila está muito pior do que o "tempo do analista" sugere.** Há 832 ocorrências
   ainda abertas e a grande maioria já passou do prazo. A idade média das abertas
   passa de 90 dias.
@@ -99,8 +110,9 @@ a página continua de pé.
 
 ## e) Perguntas que eu faria à operação
 
-1. **Qual é o prazo oficial da crítica: 24, 48 ou 72 horas?** É o que mais muda o
-   resultado. Rascunho do e-mail em `docs/email-alexandre.md`.
+1. **Prazo da crítica: 24, 48 ou 72 horas?** Perguntei, e a operação confirmou que
+   não há número oficial. Decidi por 24 horas (ver seção d), registrei a premissa e
+   deixei configurável. Fica em aberto quem valida a reconciliação desse prazo.
 2. O que conta, na prática, como falha sistêmica? Existe um limiar de volume ou é
    sempre avaliação do analista?
 3. As 72 ocorrências "Reaberta" são erro de processo ou exceção aceita?

@@ -16,7 +16,7 @@ interface Sistemico {
   mediaAnterior: number; sintomaDominante: string; ufDominante: string; custoMedio: number | null;
 }
 export interface BoardProps {
-  backlog: { abertas: number; vencidas: number; criticasAbertas: number; criticasVencidas: number; idadeMediaDias: number };
+  backlog: { abertas: number; vencidas: number; criticasAbertas: number; criticasVencidas: number; idadeMediaDias: number; indeterminadas: number; relogioIncerto: number };
   prazoCritica: number;
   duplicidade: { duplicatas: number; reincidencias: number };
   listas: {
@@ -61,6 +61,17 @@ export default function Board(p: BoardProps) {
           </button>
         ))}
       </div>
+
+      {(p.backlog.indeterminadas > 0 || p.backlog.relogioIncerto > 0) && (
+        <p className="note">
+          Sobre o prazo: o relógio conta a partir da data de abertura, e nem toda
+          abertura é confiável. {p.backlog.indeterminadas} ocorrências abertas estão
+          sem data de abertura válida, então ficam de fora da conta de vencidas (não
+          são “em dia”, são indeterminadas). Outras {p.backlog.relogioIncerto} estão
+          como “Reaberta” sem a data do reinício, então o prazo delas é uma
+          estimativa pelo original.
+        </p>
+      )}
 
       {aberta === "sistemica" && <PainelSistemica sistemicos={p.sistemicos} mensagens={p.mensagens} />}
       {aberta === "criticas" && (

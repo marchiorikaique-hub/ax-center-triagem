@@ -4,6 +4,7 @@ import type { Ocorrencia } from "../src/lib/types.ts";
 import { marcarDuplicidade } from "../src/lib/dedup.ts";
 import { detectarSistemico } from "../src/lib/systemic.ts";
 import { executarConsulta, interpretarPergunta } from "../src/lib/query.ts";
+import { inicioConfiavel, estaVencida, resumoBacklog } from "../src/lib/sla.ts";
 
 // Fábrica de ocorrências para os testes (só os campos que importam).
 function oc(p: Partial<Ocorrencia>): Ocorrencia {
@@ -12,7 +13,8 @@ function oc(p: Partial<Ocorrencia>): Ocorrencia {
     parceiro: "p", parceiroBruto: "p", uf: "SP", linha: "Geladeira",
     modelo: "M", serie: "S", lote: "", descricao: "", sintomaDeclarado: "",
     sintomaSugerido: "", prioridade: "Media", status: "aberta", slaHoras: 120,
-    custo: null, idOrigem: "", prazoHoras: 120, vencida: false, ...p,
+    custo: null, idOrigem: "", prazoHoras: 120, inicioConfiavel: true,
+    relogioIncerto: false, vencida: false, ...p,
   };
 }
 
@@ -63,6 +65,21 @@ test("interpretarPergunta extrai linha, mês e região", () => {
   assert.equal(c.mes, 7);
   assert.ok(c.ufs?.includes("PE"));
   assert.equal(c.metrica, "contagem");
+});
+
+test("início do relógio não confiável: sem abertura ou fechamento antes dela", () => {
+  assert.equal(inicioConfiavel(oc({ abertura: null })), false);
+  const feAntes = oc({ abertura: new Date(2026, 6, 10), fechamento: new Date(2026, 6, 1) });
+  assert.equal(inicioConfiavel(feAntes), false);
+  assert.equal(inicioConfiavel(oc({ abertura: new Date(2026, 6, 1) })), true);
+});
+
+test("aberta sem início confiável não é vencida, vira indeterminada", () => {
+  const semAb = oc({ id: "A", abertura: null, status: "aberta", inicioConfiavel: false, prazoHoras: 24 });
+  assert.equal(estaVencida(semAb), false);
+  const r = resumoBacklog([semAb]);
+  assert.equal(r.vencidas, 0);
+  assert.equal(r.indeterminadas, 1);
 });
 
 test("executarConsulta conta com filtro e ignora duplicata", () => {

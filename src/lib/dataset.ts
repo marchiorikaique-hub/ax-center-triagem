@@ -16,7 +16,7 @@ import {
 } from "./normalize";
 import { sugerirSintoma } from "./symptoms";
 import { marcarDuplicidade, resumoDuplicidade } from "./dedup";
-import { estaVencida, prazoHoras, resumoBacklog } from "./sla";
+import { estaVencida, inicioConfiavel, prazoHoras, resumoBacklog } from "./sla";
 import { detectarSistemico } from "./systemic";
 import { montarAlertas } from "./alerts";
 
@@ -70,8 +70,12 @@ function normalizar(cru: OcorrenciaCrua): Ocorrencia {
     custo: parseNumero(cru.custo_peca_brl),
     idOrigem: cru.id_origem,
     prazoHoras: 0,
+    inicioConfiavel: false,
+    relogioIncerto: false,
     vencida: false,
   };
+  o.relogioIncerto = o.status === "reaberta";
+  o.inicioConfiavel = inicioConfiavel(o);
   o.prazoHoras = prazoHoras(o);
   o.vencida = estaVencida(o);
   return o;

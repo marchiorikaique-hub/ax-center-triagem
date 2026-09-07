@@ -65,6 +65,11 @@ export interface Ocorrencia {
   duplicataDe?: string; // id da ocorrência original, se for cópia de outro canal
   reincidenciaDe?: string; // id do atendimento anterior encerrado, na mesma série
   violaReabertura?: boolean; // status "Reaberta" contraria o procedimento
-  prazoHoras: number; // prazo efetivo usado no cálculo de SLA
-  vencida: boolean; // passou do prazo e ainda não foi fechada
+
+  // O relógio de SLA tem dois lados: a duração (prazoHoras) e o início da contagem
+  // (a data de abertura). O início nem sempre é confiável, então marcamos isso.
+  prazoHoras: number; // prazo efetivo usado no cálculo de SLA (a duração)
+  inicioConfiavel: boolean; // tem abertura e nenhum fechamento anterior a ela
+  relogioIncerto: boolean; // reaberta: o reinício do prazo é desconhecido
+  vencida: boolean; // passou do prazo, ainda aberta, e com início confiável
 }

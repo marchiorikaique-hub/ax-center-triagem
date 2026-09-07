@@ -56,9 +56,13 @@ export function alertaCriticoVencido(b: ResumoBacklog): Alerta | null {
 
 export function alertaBacklog(b: ResumoBacklog): Alerta | null {
   if (b.vencidas < 50) return null; // só quando o acúmulo já é perigoso
+  const obs = b.indeterminadas
+    ? `Obs: ${b.indeterminadas} abertas sem data de abertura confiável ficaram fora desta conta.\n`
+    : "";
   const msg =
     `Backlog em nível de atenção: ${b.abertas} ocorrências abertas, ${b.vencidas} já fora do prazo.\n` +
     `Idade média das abertas: ${b.idadeMediaDias} dias.\n` +
+    obs +
     `Ação: revisar dimensionamento da triagem. A fila está crescendo mais rápido do que o atendimento.`;
   return {
     tipo: "backlog",

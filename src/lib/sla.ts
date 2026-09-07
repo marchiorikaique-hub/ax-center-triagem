@@ -28,10 +28,21 @@ export function prazoHoras(o: Ocorrencia): number {
 
 const MS_HORA = 3600_000;
 
-/** Está vencida = passou do prazo e ainda não foi fechada. */
+/**
+ * O início do relógio é confiável quando existe data de abertura e não há um
+ * fechamento anterior a ela. Sem isso, não dá para afirmar se a ocorrência
+ * venceu ou não: ela vira "indeterminada", não "em dia".
+ */
+export function inicioConfiavel(o: Ocorrencia): boolean {
+  if (!o.abertura) return false;
+  if (o.fechamento && o.fechamento < o.abertura) return false;
+  return true;
+}
+
+/** Está vencida = passou do prazo, ainda aberta, e com início de contagem confiável. */
 export function estaVencida(o: Ocorrencia, hoje = DATA_HOJE): boolean {
   if (o.status === "fechada") return false;
-  if (!o.abertura) return false;
+  if (!o.inicioConfiavel || !o.abertura) return false;
   const horas = (hoje.getTime() - o.abertura.getTime()) / MS_HORA;
   return horas > o.prazoHoras;
 }
@@ -42,12 +53,14 @@ export interface ResumoBacklog {
   criticasAbertas: number;
   criticasVencidas: number;
   idadeMediaDias: number;
+  indeterminadas: number; // abertas sem início de contagem confiável
+  relogioIncerto: number; // abertas reaberta: o reinício do prazo é desconhecido
 }
 
 export function resumoBacklog(ocs: Ocorrencia[], hoje = DATA_HOJE): ResumoBacklog {
   const abertas = ocs.filter((o) => o.status !== "fechada");
   const idades = abertas
-    .filter((o) => o.abertura)
+    .filter((o) => o.inicioConfiavel && o.abertura)
     .map((o) => (hoje.getTime() - o.abertura!.getTime()) / (24 * MS_HORA));
   const criticas = abertas.filter((o) => o.prioridade === "Critica");
   return {
@@ -58,5 +71,7 @@ export function resumoBacklog(ocs: Ocorrencia[], hoje = DATA_HOJE): ResumoBacklo
     idadeMediaDias: idades.length
       ? Math.round(idades.reduce((a, b) => a + b, 0) / idades.length)
       : 0,
+    indeterminadas: abertas.filter((o) => !o.inicioConfiavel).length,
+    relogioIncerto: abertas.filter((o) => o.relogioIncerto).length,
   };
 }
