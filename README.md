@@ -16,40 +16,37 @@ pnpm dev
 
 Abra `http://localhost:3100`.
 
-A base de ocorrências já vem no repositório em `dados/ocorrencias.csv`, então não
-há banco para configurar. O painel lê o CSV, limpa os dados e roda a triagem na
-hora que a página carrega.
+A base já vem no repositório em `dados/ocorrencias.csv`, então não há banco para
+configurar. A página lê o CSV, limpa os dados e roda a triagem ao carregar.
 
 ## O que você vai ver
 
-- **O que precisa de atenção hoje**: os alertas prontos para o Teams (até 900
-  caracteres cada). Só o que importa de manhã: suspeita de falha sistêmica,
-  crítico fora do prazo e backlog em nível perigoso.
-- **Suspeitas de falha sistêmica**: os modelos e lotes cujo volume disparou no
-  último mês, com a série mês a mês.
-- **Fila e prazos**: quantas ocorrências estão abertas, quantas já venceram, e
-  quantas duplicatas e reincidências foram identificadas.
-- **Pergunte à base**: uma caixa onde qualquer pessoa escreve em português
-  ("quantas geladeiras em julho no Nordeste") e recebe a resposta. A contagem é
-  sempre feita pelo código; a IA só entende a pergunta.
-- **Qualidade do campo de sintoma**: quanto o campo veio preenchido, quanto foi
-  recuperado pela descrição e quanto ficou sem evidência.
+- **Pergunte à base (topo):** um assistente onde você escreve em português
+  ("quantas críticas estão abertas?", "o que devemos priorizar?") e recebe a
+  resposta. A conversa usa IA; a contagem é sempre feita pelo código.
+- **Cartões do dia:** falha sistêmica suspeita, críticas vencidas, abertas fora do
+  prazo, duplicatas e reincidências. Cada cartão é clicável.
+- **Ao clicar num cartão:** abre a lista por trás do número. Nos cartões de falha
+  sistêmica e de crítica vencida, também aparece a mensagem pronta para o Teams
+  (até 900 caracteres) com um botão de enviar.
 
-## IA (opcional)
+## A IA
 
-A busca em linguagem natural funciona sem chave: as perguntas comuns já são
-resolvidas por uma regra determinística. Para ligar a IA nas perguntas mais
-soltas, copie `.env.example` para `.env.local` e cole sua chave da OpenAI.
+O assistente usa a OpenAI. Para ligar, copie `.env.example` para `.env.local` e cole
+sua chave:
 
 ```bash
 cp .env.example .env.local
 # edite OPENAI_API_KEY
 ```
 
+Sem chave, o assistente ainda responde as perguntas comuns por regra determinística,
+então a página nunca fica muda.
+
 ## Testes e checagens
 
 ```bash
-pnpm test        # testes do núcleo determinístico (normalização, dedup, SLA, tendência, consulta)
+pnpm test        # testes do núcleo (limpeza, dedup, SLA, tendência, consulta)
 pnpm typecheck   # TypeScript strict
 pnpm accuracy    # roda os 20 casos rotulados e mostra a acurácia da interpretação
 ```
@@ -62,10 +59,12 @@ src/lib/symptoms.ts    classificação de sintoma por palavra-chave
 src/lib/dedup.ts       duplicata x reincidência
 src/lib/sla.ts         prazo, vencidas, backlog
 src/lib/systemic.ts    detector de falha sistêmica
-src/lib/alerts.ts      geração dos alertas (formato Teams) + envio (stub)
+src/lib/alerts.ts      mensagens do Teams + envio (stub)
+src/lib/facts.ts       fatos para o chat + listas dos cartões
 src/lib/query.ts       consulta determinística + parser da pergunta
-src/lib/ai.ts          tradução da pergunta pela IA, com fallback determinístico
-src/app/page.tsx       o painel
+src/lib/chat.ts        conversa da IA, ancorada nos fatos, com fallback
+src/app/page.tsx       a página
+src/app/components/     Chat (assistente) e Board (cartões + listas)
 eval/                  os 20 casos rotulados
 docs/email-alexandre.md  a pergunta aberta para a operação
 ```
