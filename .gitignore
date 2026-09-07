@@ -1,0 +1,13 @@
+# deps
+/node_modules
+# next
+/.next
+/out
+# env (nunca versionar chave)
+.env
+.env.local
+.env*.local
+# sistema
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts

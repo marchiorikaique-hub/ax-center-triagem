@@ -1,0 +1,22 @@
+[
+  { "pergunta": "Quantas ocorrências de geladeira em julho no Nordeste?", "esperado": { "metrica": "contagem", "linha": "Geladeira", "mes": 7, "ufs": ["BA", "PE", "CE", "MA", "PB", "RN", "AL", "SE", "PI"] } },
+  { "pergunta": "Quais modelos têm mais reincidência?", "esperado": { "metrica": "top_reincidencia" } },
+  { "pergunta": "Quantos chamados críticos abertos?", "esperado": { "metrica": "contagem", "prioridade": "Critica", "apenasAbertas": true } },
+  { "pergunta": "O que mais cresceu no último mês?", "esperado": { "metrica": "tendencia" } },
+  { "pergunta": "Quantas lavadoras em maio?", "esperado": { "metrica": "contagem", "linha": "Maquina de Lavar", "mes": 5 } },
+  { "pergunta": "Quais os modelos com mais ocorrências em SP?", "esperado": { "metrica": "top_modelos", "ufs": ["SP"] } },
+  { "pergunta": "Quantas ocorrências estão fora do prazo?", "esperado": { "metrica": "vencidas" } },
+  { "pergunta": "Quantos ar-condicionado no Sul?", "esperado": { "metrica": "contagem", "linha": "Ar-Condicionado", "ufs": ["RS", "PR", "SC"] } },
+  { "pergunta": "Quantas TVs em agosto?", "esperado": { "metrica": "contagem", "linha": "TV", "mes": 8 } },
+  { "pergunta": "Ranking de modelos de monitor", "esperado": { "metrica": "top_modelos", "linha": "Monitor" } },
+  { "pergunta": "Quantas ocorrências críticas fora do prazo?", "esperado": { "metrica": "vencidas", "prioridade": "Critica" } },
+  { "pergunta": "Quantas geladeiras em junho?", "esperado": { "metrica": "contagem", "linha": "Geladeira", "mes": 6 } },
+  { "pergunta": "Me dá o total de chamados abertos de ar condicionado", "esperado": { "metrica": "contagem", "linha": "Ar-Condicionado", "apenasAbertas": true } },
+  { "pergunta": "Quantos monitores em março no Sudeste?", "esperado": { "metrica": "contagem", "linha": "Monitor", "mes": 3, "ufs": ["SP", "MG", "RJ", "ES"] } },
+  { "pergunta": "Quais modelos de geladeira mais aparecem?", "esperado": { "metrica": "top_modelos", "linha": "Geladeira" } },
+  { "pergunta": "Quantas máquinas de lavar em RS?", "esperado": { "metrica": "contagem", "linha": "Maquina de Lavar", "ufs": ["RS"] } },
+  { "pergunta": "O que está estourando o prazo?", "esperado": { "metrica": "vencidas" } },
+  { "pergunta": "Quantas ocorrências de prioridade alta em julho?", "esperado": { "metrica": "contagem", "prioridade": "Alta", "mes": 7 } },
+  { "pergunta": "Tem algum modelo com problema recorrente nos clientes?", "esperado": { "metrica": "top_reincidencia" } },
+  { "pergunta": "Quantas ocorrências em Pernambuco?", "esperado": { "metrica": "contagem", "ufs": ["PE"] } }
+]

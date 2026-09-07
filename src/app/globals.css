@@ -1,0 +1,109 @@
+:root {
+  --bg: #0e1116;
+  --panel: #171b22;
+  --panel-2: #1e232c;
+  --line: #2a303b;
+  --ink: #e8ecf1;
+  --ink-dim: #9aa4b2;
+  --ink-faint: #6b7482;
+  --accent: #5b9dff;
+  --crit: #ff5c5c;
+  --alto: #ffa53c;
+  --ok: #3ecf8e;
+  --radius: 12px;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 40px 24px 80px; }
+
+header.top { margin-bottom: 8px; }
+header.top h1 { font-size: 22px; font-weight: 650; margin: 0 0 4px; letter-spacing: -0.01em; }
+header.top p { color: var(--ink-dim); margin: 0; font-size: 14px; }
+.data-hoje { color: var(--ink-faint); font-size: 13px; }
+
+section { margin-top: 36px; }
+section > h2 {
+  font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--ink-dim); font-weight: 600; margin: 0 0 14px;
+}
+
+/* cartões de números */
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.kpi {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 16px 18px;
+}
+.kpi .n { font-size: 28px; font-weight: 680; letter-spacing: -0.02em; }
+.kpi .l { color: var(--ink-dim); font-size: 13px; margin-top: 2px; }
+.kpi .s { color: var(--ink-faint); font-size: 12px; margin-top: 6px; }
+.kpi.warn .n { color: var(--alto); }
+.kpi.crit .n { color: var(--crit); }
+
+/* alertas */
+.alertas { display: grid; gap: 12px; }
+.alerta {
+  background: var(--panel); border: 1px solid var(--line);
+  border-left: 3px solid var(--alto); border-radius: var(--radius); padding: 16px 18px;
+}
+.alerta.critico { border-left-color: var(--crit); }
+.alerta .cab { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.alerta .tt { font-weight: 620; font-size: 15px; }
+.alerta .tag { font-size: 11px; color: var(--ink-faint); font-family: var(--mono); }
+.alerta pre {
+  margin: 10px 0 0; white-space: pre-wrap; font: 13px/1.55 var(--mono);
+  color: var(--ink-dim); background: var(--panel-2); border: 1px solid var(--line);
+  border-radius: 8px; padding: 12px;
+}
+.alerta .len { font-size: 11px; color: var(--ink-faint); margin-top: 6px; }
+
+/* série mensal (mini barras) */
+.spark { display: flex; align-items: flex-end; gap: 4px; height: 44px; margin-top: 12px; }
+.spark .bar { flex: 1; background: var(--panel-2); border-radius: 3px 3px 0 0; position: relative; min-height: 3px; }
+.spark .bar.pico { background: var(--crit); }
+.spark .bar span { position: absolute; bottom: -18px; left: 0; right: 0; text-align: center; font-size: 10px; color: var(--ink-faint); }
+.spark-wrap { margin-bottom: 22px; }
+
+/* busca em linguagem natural */
+.ask { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+.ask form { display: flex; gap: 10px; }
+.ask input {
+  flex: 1; background: var(--panel-2); border: 1px solid var(--line); color: var(--ink);
+  border-radius: 8px; padding: 12px 14px; font-size: 15px;
+}
+.ask input:focus { outline: none; border-color: var(--accent); }
+.ask button {
+  background: var(--accent); color: #0b1220; border: 0; border-radius: 8px;
+  padding: 0 20px; font-weight: 620; cursor: pointer; font-size: 14px;
+}
+.ask button:disabled { opacity: 0.5; cursor: default; }
+.ask .resp { margin-top: 14px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 14px; }
+.ask .resp .txt { font-size: 15px; }
+.ask .resp .via { font-size: 11px; color: var(--ink-faint); font-family: var(--mono); margin-top: 8px; }
+.ask .sugestoes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.ask .sugestoes button {
+  background: transparent; color: var(--ink-dim); border: 1px solid var(--line);
+  border-radius: 999px; padding: 6px 12px; font-size: 12px; font-weight: 500;
+}
+
+/* tabelinha simples */
+table.mini { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.mini td { padding: 8px 4px; border-bottom: 1px solid var(--line); }
+table.mini td:last-child { text-align: right; color: var(--ink-dim); font-variant-numeric: tabular-nums; }
+
+.nota { color: var(--ink-faint); font-size: 12px; margin-top: 10px; }
+
+@media (max-width: 720px) {
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+  .ask form { flex-direction: column; }
+  .ask button { padding: 12px; }
+}

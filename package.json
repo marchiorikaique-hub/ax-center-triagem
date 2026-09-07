@@ -1,0 +1,27 @@
+{
+  "name": "ax-center-triagem",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3100",
+    "build": "next build",
+    "start": "next start --port 3100",
+    "typecheck": "tsc --noEmit",
+    "lint": "next lint",
+    "test": "tsx --test tests/*.test.ts",
+    "accuracy": "tsx scripts/accuracy.ts"
+  },
+  "dependencies": {
+    "next": "15.5.2",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.3.0",
+    "@types/react": "19.1.12",
+    "@types/react-dom": "19.1.9",
+    "tsx": "4.20.5",
+    "typescript": "5.9.2"
+  }
+}
