@@ -64,7 +64,7 @@ body {
 .masthead .meta b { color: var(--ink-2); font-weight: 600; font-variant-numeric: tabular-nums; }
 
 /* chat hero — destacado, com faixa e cabeçalho na cor da marca */
-.chat { margin-top: 30px; background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: var(--radius); box-shadow: var(--shadow-accent); overflow: hidden; }
+.chat { margin-top: 30px; background: var(--surface); border: 1px solid var(--accent-soft); border-radius: var(--radius); box-shadow: var(--shadow-accent); overflow: hidden; }
 .chat .head { padding: 20px 24px 16px; background: var(--accent-soft); border-bottom: 1px solid var(--line); }
 .chat .head h2 { font-family: var(--serif); font-weight: 500; font-size: 21px; letter-spacing: -0.01em; margin: 0 0 3px; color: var(--accent); }
 .chat .head p { margin: 0; color: var(--ink-2); font-size: 13.5px; }
