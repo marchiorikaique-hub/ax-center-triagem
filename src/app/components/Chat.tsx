@@ -10,7 +10,7 @@ interface Turno {
 }
 
 const SUGESTOES = [
-  "Quantas ocorrências temos hoje?",
+  "Quantos chamados abertos em julho?",
   "Quais modelos têm mais reincidência?",
   "O que devemos priorizar agora?",
 ];
@@ -53,6 +53,13 @@ export default function Chat() {
       </div>
 
       <div className="thread">
+        {turnos.length === 0 && !carregando && (
+          <div className="vazio">
+            <strong>Converse com a base</strong>
+            Ex.: quantos chamados abertos em julho? · quais modelos têm reincidência? ·
+            o que devemos priorizar?
+          </div>
+        )}
         {turnos.map((t, i) =>
           t.autor === "user" ? (
             <div key={i} className="msg user">{t.texto}</div>
