@@ -1,4 +1,4 @@
-Para: alexandre.cunha@lge.com
+Para: alexandre
 Assunto: Dúvida sobre o prazo de atendimento das ocorrências críticas
 
 Oi Alexandre, tudo bem?
